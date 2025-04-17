@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Pacientes</h1>
+    <a href="{% url 'criar_paciente' %}" class="btn btn-primary mb-3">Cadastrar Paciente</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>RG</th>
+                <th>CPF</th>
+                <th>Quarto</th>
+                <th>Data de Entrada</th>
+                <th>Data de Saída</th>
+                <th>Hospital</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes %}
+                <tr>
+                    <td>{{ paciente.nome }}</td>
+                    <td>{{ paciente.data_nascimento }}</td>
+                    <td>{{ paciente.rg }}</td>
+                    <td>{{ paciente.cpf }}</td>
+                    <td>{{ paciente.quarto }}</td>
+                    <td>{{ paciente.data_entrada }}</td>
+                    <td>{{ paciente.data_saida|default:"-" }}</td>
+                    <td>{{ paciente.hospital_tratamento }}</td>
+                    <td>
+                        <a href="{% url 'editar_paciente' paciente.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'excluir_paciente' paciente.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="9">Nenhum paciente cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

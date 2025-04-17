@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Acompanhantes</h1>
+    <a href="{% url 'criar_acompanhante' %}" class="btn btn-primary mb-3">Cadastrar Acompanhante</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>RG</th>
+                <th>CPF</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acompanhante in acompanhantes %}
+                <tr>
+                    <td>{{ acompanhante.nome }}</td>
+                    <td>{{ acompanhante.data_nascimento }}</td>
+                    <td>{{ acompanhante.rg }}</td>
+                    <td>{{ acompanhante.cpf }}</td>
+                    <td>{{ acompanhante.endereco }}</td>
+                    <td>{{ acompanhante.cidade }}</td>
+                    <td>{{ acompanhante.estado }}</td>
+                    <td>
+                        <a href="{% url 'editar_acompanhante' acompanhante.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'excluir_acompanhante' acompanhante.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="8">Nenhum acompanhante cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

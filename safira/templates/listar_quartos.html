@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Quartos</h1>
+    <a href="{% url 'criar_quarto' %}" class="btn btn-primary mb-3">Criar Quarto</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Capacidade de Camas</th>
+                <th>Localização</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quarto in quartos %}
+                <tr>
+                    <td>{{ quarto.numero }}</td>
+                    <td>{{ quarto.capacidade_camas }}</td>
+                    <td>{{ quarto.get_localizacao_display }}</td>
+                    <td>
+                        <a href="{% url 'editar_quarto' quarto.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'excluir_quarto' quarto.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4">Nenhum quarto cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
