@@ -1,0 +1,25 @@
+{% extends 'menu_principal.html' %}
+
+{% block content %}
+    <h1>Gerar Termo de Adesão</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="paciente" class="form-label">Selecione o Paciente:</label>
+            <select class="form-select" name="paciente" id="paciente" required>
+                {% for paciente in pacientes %}
+                    <option value="{{ paciente.id }}">{{ paciente.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="acompanhante" class="form-label">Selecione o Acompanhante:</label>
+            <select class="form-select" name="acompanhante" id="acompanhante" required>
+                {% for acompanhante in acompanhantes %}
+                    <option value="{{ acompanhante.id }}">{{ acompanhante.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Gerar Termo</button>
+    </form>
+{% endblock %}

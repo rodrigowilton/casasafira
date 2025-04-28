@@ -18,4 +18,6 @@ urlpatterns = [
     path('acompanhantes/criar/', views.criar_acompanhante, name='criar_acompanhante'),
     path('acompanhantes/editar/<int:pk>/', views.editar_acompanhante, name='editar_acompanhante'),
     path('acompanhantes/excluir/<int:pk>/', views.excluir_acompanhante, name='excluir_acompanhante'),
+    path('gerar_termo/', views.gerar_termo, name='gerar_termo'),
+
 ]

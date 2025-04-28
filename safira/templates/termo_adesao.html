@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Termo de Adesão Casa Safira</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; } /* Importante para caracteres especiais */
+        .container { width: 80%; margin: auto; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .data { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>TERMO DE ADESÃO ÀS REGRAS GERAIS DA CASA SAFIRA</h2>
+        </div>
+        <p>Pelo presente termo, de um lado, a instituição sem fins lucrativos "CASA SAFIRA", com sede à Rua Pedro Campana, 161, neste Capital, inscrita no CNPJ sob o nº 07.021.859/0001-26, neste ato representada por seu responsável legal, Keila Cristina Marquart Mota e de outro lado:</p>
+
+        <div class="data">
+            <strong>Dados Paciente</strong><br>
+            Nome: {{ paciente.nome }}<br>
+            Data de Nascimento: {{ paciente.data_nascimento }}<br>
+            RG: {{ paciente.rg }}<br>
+            CPF: {{ paciente.cpf }}<br>
+            Endereço: {{ paciente.endereco }}<br>
+            Cidade: {{ paciente.cidade }}<br>
+            Estado: {{ paciente.estado }}<br>
+        </div>
+
+        <div class="data">
+            <strong>Dados Acompanhante</strong><br>
+            Nome: {{ acompanhante.nome }}<br>
+            Data de Nascimento: {{ acompanhante.data_nascimento }}<br>
+            RG: {{ acompanhante.rg }}<br>
+            CPF: {{ acompanhante.cpf }}<br>
+            Endereço: {{ acompanhante.endereco }}<br>
+            Cidade: {{ acompanhante.cidade }}<br>
+            Estado: {{ acompanhante.estado }}<br>
+        </div>
+
+        <p>Tem entre si como certo o ajustado o presente termo de adesão às regras estabelecidas para utilização das instalações da CASA SAFIRA, como se segue:</p>
+        <p>A CASA SAFIRA, entidade sem fins lucrativos, que tem por objeto proporcionar hospedagem, em sua sede, a pacientes em tratamento oncológico perante hospitais conveniados localizados na capital de São Paulo, e que tenham residência fora da região metropolitana de São Paulo.</p>
+        </div>
+</body>
+</html>
