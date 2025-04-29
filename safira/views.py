@@ -1,21 +1,3 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Quarto, Paciente, Acompanhante
-from .forms import QuartoForm, PacienteForm, AcompanhanteForm
-from django.http import HttpResponse
-from django.template.loader import get_template
-from xhtml2pdf import pisa
-from django.core.exceptions import ObjectDoesNotExist
-import logging
-from django.shortcuts import render
-from .models import Paciente
-
-def listar_presentes(request):
-    pacientes_na_casa = Paciente.objects.filter(data_saida__isnull=True)
-    return render(request, 'listar_presentes.html', {'pacientes_na_casa': pacientes_na_casa})
-
-logger = logging.getLogger(__name__)
-
-
 import base64
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Quarto, Paciente, Acompanhante
@@ -27,6 +9,26 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import os
 import logging
+from django.contrib import messages
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if username == 'master' and password == '5&0$Safira':
+            # Autenticação bem-sucedida, redirecionar para o menu principal
+            return redirect('menu_principal')
+        else:
+            # Falha na autenticação, exibir mensagem de erro
+            messages.error(request, 'Usuário ou senha incorretos.')
+            return render(request, 'login.html')
+    else:
+        return render(request, 'login.html')
+
+def listar_presentes(request):
+    pacientes_na_casa = Paciente.objects.filter(data_saida__isnull=True)
+    return render(request, 'listar_presentes.html', {'pacientes_na_casa': pacientes_na_casa})
 
 logger = logging.getLogger(__name__)
 
