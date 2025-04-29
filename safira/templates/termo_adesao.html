@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,13 +7,17 @@
     <style>
         body { font-family: DejaVu Sans, sans-serif; } /* Importante para caracteres especiais */
         .container { width: 80%; margin: auto; }
-        .header { text-align: center; margin-bottom: 20px; }
+        .header { text-align: center; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        .header h2 { margin-left: 10px; } /* Espaço entre a logo e o título */
         .data { margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            {% if logo %}
+                <img src="{{ logo }}" alt="Logo Casa Safira" class="mr-2">
+            {% endif %}
             <h2>TERMO DE ADESÃO ÀS REGRAS GERAIS DA CASA SAFIRA</h2>
         </div>
         <p>Pelo presente termo, de um lado, a instituição sem fins lucrativos "CASA SAFIRA", com sede à Rua Pedro Campana, 161, neste Capital, inscrita no CNPJ sob o nº 07.021.859/0001-26, neste ato representada por seu responsável legal, Keila Cristina Marquart Mota e de outro lado:</p>

@@ -19,5 +19,6 @@ urlpatterns = [
     path('acompanhantes/editar/<int:pk>/', views.editar_acompanhante, name='editar_acompanhante'),
     path('acompanhantes/excluir/<int:pk>/', views.excluir_acompanhante, name='excluir_acompanhante'),
     path('gerar_termo/', views.gerar_termo, name='gerar_termo'),
+    path('presentes/', views.listar_presentes, name='listar_presentes'),
 
 ]

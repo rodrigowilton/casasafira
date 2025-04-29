@@ -6,9 +6,29 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.core.exceptions import ObjectDoesNotExist
 import logging
+from django.shortcuts import render
+from .models import Paciente
+
+def listar_presentes(request):
+    pacientes_na_casa = Paciente.objects.filter(data_saida__isnull=True)
+    return render(request, 'listar_presentes.html', {'pacientes_na_casa': pacientes_na_casa})
 
 logger = logging.getLogger(__name__)
 
+
+import base64
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Quarto, Paciente, Acompanhante
+from .forms import QuartoForm, PacienteForm, AcompanhanteForm
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
+import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 def gerar_termo(request):
     pacientes = Paciente.objects.all()
@@ -27,8 +47,17 @@ def gerar_termo(request):
                 f"Paciente ou Acompanhante não encontrado: paciente_id={paciente_id}, acompanhante_id={acompanhante_id}")
             return HttpResponse("Paciente ou Acompanhante não encontrado.", status=404)
 
+        try:
+            image_path = os.path.join(settings.BASE_DIR, 'safira', 'img', 'img7.png')
+            with open(image_path, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            logo_base64 = f"data:image/png;base64,{encoded_string}"
+        except FileNotFoundError:
+            logger.error(f"Arquivo de imagem não encontrado: {image_path}")
+            logo_base64 = None
+
         template_path = 'termo_adesao.html'
-        context = {'paciente': paciente, 'acompanhante': acompanhante}
+        context = {'paciente': paciente, 'acompanhante': acompanhante, 'logo': logo_base64}
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="termo_adesao.pdf"'
 
@@ -38,14 +67,13 @@ def gerar_termo(request):
         pisa_status = pisa.CreatePDF(html, dest=response)
         if pisa_status.err:
             logger.error(f"Erro ao gerar PDF: {pisa_status.err}")
-            return HttpResponse('Erro ao gerar PDF', status=500)  # Retorna erro 500
+            return HttpResponse('Erro ao gerar PDF', status=500)
         return response
 
     else:
         print(f"Número de pacientes: {pacientes.count()}")
         print(f"Número de acompanhantes: {acompanhantes.count()}")
         return render(request, 'selecionar_pessoas.html', {'pacientes': pacientes, 'acompanhantes': acompanhantes})
-
 
 def menu_principal(request):
     return render(request, 'menu_principal.html')

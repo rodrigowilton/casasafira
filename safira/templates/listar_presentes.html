@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Pacientes e Acompanhantes Atualmente na Casa</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Acompanhante</th>
+                <th>Data de Entrada do Paciente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes_na_casa %}
+                <tr>
+                    <td>{{ paciente.nome }}</td>
+                    <td>
+                        {% if paciente.acompanhante %}
+                            {{ paciente.acompanhante.nome }}
+                        {% else %}
+                            Sem acompanhante
+                        {% endif %}
+                    </td>
+                    <td>{{ paciente.data_entrada }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum paciente ou acompanhante registrado atualmente na casa.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
